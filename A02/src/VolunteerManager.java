@@ -8,7 +8,6 @@ public class VolunteerManager {
     //output file
     final FileWriter outputFile = new FileWriter(".\\src\\results.txt");
     final BufferedWriter bw = new BufferedWriter(outputFile);
-    private BinaryNode[] nodeList;
     private BinaryNode root;
 
 
@@ -22,73 +21,46 @@ public class VolunteerManager {
         height();
         // Item 4
         depth();
+        // Item 5
+        depth2();
 
     } // constructor
 
 
-
-
     /*
-   This method reads data from a given file and load the double-end Linked List
+   Fulfill A02-1
+   This method reads data from a given file and load BST root
     */
-    private void createBST() throws IOException {
+    public void createBST() throws IOException {
         Scanner sc = new Scanner(inputFile);
-
-        //count lines , only data
-        int lines = -1; //remove labels, keep data
-        while (sc.hasNextLine()) {
-            lines++;
-            sc.nextLine();
-        }
-        sc.close();
-
-        //populate nodeList
-        sc = new Scanner(inputFile);
         sc.nextLine(); //skip labels
-        nodeList = new BinaryNode[lines];
-        for (int i = 0; i < lines; i++){
-            nodeList[i] = new BinaryNode(""+sc.next(), ""+sc.next(),
-                    ""+sc.next()+" "+sc.next()+" "+sc.next(), ""+sc.next());
+        while (sc.hasNextLine()) {
+            insert(root, new BinaryNode("" + sc.next(), "" + sc.next(),
+                    "" + sc.next() + " " + sc.next() + " " + sc.next(), "" + sc.next()));
             sc.nextLine();
         }
         sc.close();
-
-        // Requirement Item 1: calling insert() from createBST()
-        root = insert(nodeList, 0, nodeList.length - 1);
-
     }
 
-    // this method inserts new nodes to the tree
-    public BinaryNode insert(BinaryNode[] nodeList, int from, int upto) {
-        
-
-
-
-
-        /*
-        // base case
-        if (from > upto) return null;
-
-        // recurrence down the tree in [from, upto]
-        // root of a given subtree
-        BinaryNode node = nodeList[from];
-        // find k, the point of insertion
-        int k;
-        for (k = from; k <= upto; k++){
-            if (Integer.valueOf(nodeList[k].getId()) > Integer.valueOf(node.getId()) ) break;
+    // this method inserts new nodes to BST
+    private BinaryNode insert(BinaryNode tree, BinaryNode node) {
+        // Assign root 1st time
+        if (root == null) { root = node; }
+        //base case
+        if (tree == null) {
+            tree = node;
+        } else {
+            if (Integer.parseInt(node.getId()) < Integer.parseInt(tree.getId())) {
+                tree.setLeft(insert(tree.getLeft(), node));
+            } else {
+                tree.setRight(insert(tree.getRight(), node));
+            }
         }
-        // k holds position now
-        // set left and right pointers
-        node.setLeft(insert(nodeList, from + 1, k - 1));
-        node.setRight(insert(nodeList, k, upto));
-
-        // node is ready
-        return node;
-
-         */
+        return tree;
     }
 
-    private void printAll() throws IOException {
+    // Fulfill A02-2
+    public void printAll() throws IOException {
         String labels = "VolunteerID" + "\t"+ "Name" + "\t" + "Address" + "\t" + "Contact" + "\n";
 
         // Item 02-a
@@ -120,13 +92,10 @@ public class VolunteerManager {
         printPost(root);
         System.out.println("\n");
         bw.newLine();
-
-
     }
 
-
+    // print tree PreOrder
     private void printPre(BinaryNode node) throws IOException {
-
         if (node == null) { return; }
         printData(node);
         printPre(node.getLeft());
@@ -139,16 +108,17 @@ public class VolunteerManager {
         printIn(node.getLeft());
         printData(node);
         printIn(node.getRight());
-
     }
+
+    // print tree PostOrder
     private void printPost(BinaryNode node) throws IOException {
         if (node == null) { return; }
         printPost(node.getLeft());
         printPost(node.getRight());
         printData(node);
-
     }
 
+    // Prints a given node and writes to file
     private void printData(BinaryNode node) throws IOException {
         // print to screen
         System.out.print("" + node.getId() + "\t" + node.getName() + "\t" +
@@ -161,7 +131,8 @@ public class VolunteerManager {
         bw.newLine();
     }
 
-    private void height() throws IOException {
+    //Fulfill A02-3
+    public void height() throws IOException {
         //recursion inside getHeight()
         int result = getHeight(root);
 
@@ -172,50 +143,74 @@ public class VolunteerManager {
         //write
         bw.write("Item 3: Height of BST"+"\n");
         bw.write("Value: " + result+"\n");
-
-
     }
+
+    //recursive method
     private int getHeight(BinaryNode node){
-        if (node == null) return -1;
-        return 1 +  Math.max(getHeight(node.getLeft()),getHeight(node.getRight()));
+        if (node == null) {
+            return -1;
+        }
+        return 1 + Math.max(getHeight(node.getLeft()),getHeight(node.getRight()));
     }
 
-
-
-
-    private void depth() throws IOException {
-        //recursion inside getDepth
-        int result = getDeepest(root);
+    // Fulfill A02-4
+    public void depth() throws IOException {
+        //recursion inside getMaxDepth
+        int result = getMaxDepth(root);
 
         //print
-        System.out.print("Item 4: Deepest Node"+"\n");
+        System.out.print("Item 4: Maximum Depth"+"\n");
         System.out.println("Value: "+ result+"\n");
 
         //write
         bw.write("Item 4: Depth of BST"+"\n");
         bw.write("Value: " + result+"\n");
+    }
+
+    private int getMaxDepth(BinaryNode node){
+        if (node == null) {
+            return -1;
+        }
+        return 1 + Math.max(getMaxDepth(node.getLeft()),getMaxDepth(node.getRight()));
+    }
+
+    // Fulfill A02-5
+    public void depth2() throws IOException {
+        // value to be searched
+        int id = Integer.parseInt("077");
+        //recursion inside getDepth
+        int result = getDepth(root, id);
+
+        //print
+        System.out.print("Item 5: Depth of 077" + "\n");
+        System.out.println("Value: " + result + "\n");
+
+        //write
+        bw.write("Item 5: Depth of 077" + "\n");
+        bw.write("Value: " + result+"\n");
 
         bw.close();
     }
-    private getDeepest(BinaryNode node, int value){
-        if (node == null) {
-            return (0, null )
+
+    private int getDepth(BinaryNode node, int key){
+        int count = 0;
+        BinaryNode curr = node;
+        while (Integer.parseInt(curr.getId()) != key){
+            if (key < Integer.parseInt(curr.getId())){
+                curr = curr.getLeft();
+            } else {
+                curr = curr.getRight();
+            }
+            if ( curr == null) { return -1; } //not found
+            count++; //down one level
         }
-        if ((node.getRight() == null) && (node.getLeft() == null)){
-            return (1, node)
-        }
-        leftMax, node.getLeft() = getDeepest(node.getLeft());
-        rightMax, node.getRight() = getDeepest(node.getRight());
-
-        if (leftMax > rightMax) return (leftMax +1 , node.getLeft())
-        else return (rightMax +1 , node.getRight())
-
-
-
+        return count;
     }
+
+
 
     public static void main(String[] args) throws IOException {
       VolunteerManager vm = new VolunteerManager();
+    } //main
 
-    }
-}
+} //VolunteerManager

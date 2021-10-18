@@ -3,37 +3,37 @@ VolunteerID	Name	Address	Contact
 050	John		24 Willow Street	905-747-0876
 042	Emily		362 Sunset Avenue	905-323-1234
 013	Alice		16 Wonderland Street	905-678-0987
+008	Gary		84 California Street	905-767-3456
+024	Sean		909 Green Avenue	905-232-5445
 071	Arthur		36 York Road	905-242-5643
 060	Daniel		125 Ottawa Street	905-666-3290
 055	Peppa		64 Great Britain	Blvd
-024	Sean		909 Green Avenue	905-232-5445
 077	Kim		678 Grape Garden	905-080-7641
 098	Patrick		126 Oxford Street	905-099-9535
 092	Laura		45 Mill Street	905-244-0086
-008	Gary		84 California Street	905-767-3456
 
 Item 02-b: inOrder
 VolunteerID	Name	Address	Contact
+008	Gary		84 California Street	905-767-3456
 013	Alice		16 Wonderland Street	905-678-0987
+024	Sean		909 Green Avenue	905-232-5445
 042	Emily		362 Sunset Avenue	905-323-1234
 050	John		24 Willow Street	905-747-0876
-024	Sean		909 Green Avenue	905-232-5445
 055	Peppa		64 Great Britain	Blvd
 060	Daniel		125 Ottawa Street	905-666-3290
 071	Arthur		36 York Road	905-242-5643
 077	Kim		678 Grape Garden	905-080-7641
-008	Gary		84 California Street	905-767-3456
 092	Laura		45 Mill Street	905-244-0086
 098	Patrick		126 Oxford Street	905-099-9535
 
 Item 02-c: postOrder
 VolunteerID	Name	Address	Contact
+008	Gary		84 California Street	905-767-3456
+024	Sean		909 Green Avenue	905-232-5445
 013	Alice		16 Wonderland Street	905-678-0987
 042	Emily		362 Sunset Avenue	905-323-1234
-024	Sean		909 Green Avenue	905-232-5445
 055	Peppa		64 Great Britain	Blvd
 060	Daniel		125 Ottawa Street	905-666-3290
-008	Gary		84 California Street	905-767-3456
 092	Laura		45 Mill Street	905-244-0086
 098	Patrick		126 Oxford Street	905-099-9535
 077	Kim		678 Grape Garden	905-080-7641
@@ -41,4 +41,8 @@ VolunteerID	Name	Address	Contact
 050	John		24 Willow Street	905-747-0876
 
 Item 3: Height of BST
-Value: 6
+Value: 4
+Item 4: Depth of BST
+Value: 4
+Item 5: Depth of 077
+Value: 2
